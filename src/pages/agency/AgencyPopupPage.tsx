@@ -3,13 +3,29 @@ import { BtnApply, BtnReset } from "../../components/button/Button";
 import { InputCheckBox, InputText, InputTextArea } from "../../components/input/Input";
 import { Table, TableCell, TableRow } from "../../components/table/styles";
 import { AgencyPopupContainer, Title } from "./styles";
+import { AgencyObj } from "../../objects/AgencyObj";
 
 export default function AgencyPopupPage() {
     const location = useLocation();
 
-    // Controller.tsx로부터 넘어오는 state 객체 할당
     const title = location.state.title as string;
-    const valueApply = location.state.valueApply as string;
+    const valueApply = location.state.valueApply as string;    
+
+    const {
+        AgencyData,
+        setAgencyName,
+        setRelation,
+        setAddress,
+        setBusinessNum,
+        setCeo,
+        setTel,
+        setIsUsed
+    } = AgencyObj();
+
+    // 등록신청 버튼 클릭 시
+    const handleRegist = () => {
+        console.log(AgencyData);
+    }
 
     return (
         <AgencyPopupContainer>
@@ -24,49 +40,49 @@ export default function AgencyPopupPage() {
                     <TableCell>*</TableCell>
                     <TableCell>소속사 명</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="20rem" />
+                        <InputText width="20rem" value={AgencyData.companyName} onChange={(e) => setAgencyName(e.target.value)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell></TableCell>
                     <TableCell>소속사 관계</TableCell>
                     <TableCell textAlign="left">
-                        <InputTextArea />
+                        <InputTextArea value={AgencyData.relation} onChange={(e) => setRelation(e.target.value)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>*</TableCell>
                     <TableCell>주소</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="35rem" />
+                        <InputText width="35rem" value={AgencyData.address} onChange={(e) => setAddress(e.target.value)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>*</TableCell>
                     <TableCell>사업자 번호</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="20rem" />
+                        <InputText width="20rem" value={AgencyData.businessNumber} onChange={(e) => setBusinessNum(e.target.value)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>*</TableCell>
                     <TableCell>대표자</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="12rem" />
+                        <InputText width="12rem" value={AgencyData.representative} onChange={(e) => setCeo(e.target.value)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell></TableCell>
                     <TableCell>전화번호</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="12rem" />
+                        <InputText width="12rem" value={AgencyData.phoneNumber} onChange={(e) => setTel(e.target.value)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>*</TableCell>
                     <TableCell>사용여부</TableCell>
-                    <TableCell textAlign="left">
-                        <InputCheckBox />
+                    <TableCell textAlign="left" >
+                        <InputCheckBox checked={AgencyData.active} onChange={(e) => setIsUsed(e.target.checked)} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -75,7 +91,7 @@ export default function AgencyPopupPage() {
                     <TableCell textAlign="right">
                         <BtnReset />
                         &nbsp;
-                        <BtnApply value={valueApply} />
+                        <BtnApply value={valueApply} onClick={handleRegist} />
                     </TableCell>
                 </TableRow>
             </Table>
