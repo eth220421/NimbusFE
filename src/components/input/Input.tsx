@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { InputTextAreaType, InputTextType } from "./types";
 
-export const  InputText= styled.input.attrs({
-    type: 'text'
-})<InputTextType>`
+export const  InputText= styled.input.attrs(props => ({
+    type: 'text',
+    required: props.required || false,
+}))<InputTextType>`
     width: ${(props) => props.width || '5rem'};
     height: 0.7rem;
 `

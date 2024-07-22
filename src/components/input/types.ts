@@ -1,5 +1,6 @@
 export interface InputTextType {
     width?: string;
+    required?: boolean;
 }
 
 export interface InputTextAreaType {
