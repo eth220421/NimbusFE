@@ -19,3 +19,10 @@ export const InputCheckBox = styled.input.attrs({
 })`
     width: fit-content;
 `
+
+export const InputRadioBtn = styled.input.attrs({
+    type: 'radio',
+    name: 'agency'
+})`
+    width: fit-content;
+`

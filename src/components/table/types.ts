@@ -1,3 +1,5 @@
+import { AgencyObjType } from "../../objects/types";
+
 export interface TableRowType {
     backgroundColor?: string;
     fontColor?: string;
@@ -8,4 +10,10 @@ export interface TableCellType {
     width?: string;
     border?: string;
     textAlign? : string;
+}
+
+export interface AgencyTableType {
+    agencys: AgencyObjType[];
+    setCheckedAgency: (agency: AgencyObjType) => void;
+    adminName: string;
 }

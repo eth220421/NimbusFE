@@ -2,7 +2,9 @@ import { useLocation } from "react-router-dom";
 import { AgencyController } from "../../components/controller/Controller";
 import { AgencyTable } from "../../components/table/Table";
 import { AgencyContainer } from "./styles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AgencyObjType } from "../../objects/types";
+import { useControllerEvents } from "../../components/controller/events";
 
 export default function AgencyPage() {
     const location = useLocation();
@@ -10,14 +12,22 @@ export default function AgencyPage() {
     // 관리자 이름
     const adminName = location.state.adminName as string;
 
+    // Controller.tsx와 Table.tsx의 부모 폴더에서 상태 관리
+    const [agencys, setAgencys] = useState<AgencyObjType[]>([]);
+
+    // 체크된 소속사의 상태 관리
+    const [checkedAgency, setCheckedAgency] = useState<AgencyObjType | null>(null);
+
+    // 초기 렌더링 시 GET All을 위한 handleRead
+    const { handleRead } = useControllerEvents({ setAgencys });
     useEffect(() => {
-        console.log(adminName);
+        handleRead();
     }, [])
 
     return (
         <AgencyContainer>
-            <AgencyController />
-            <AgencyTable />
+            <AgencyController setAgencys={setAgencys} checkedAgency={checkedAgency} />
+            <AgencyTable agencys={agencys} setCheckedAgency={setCheckedAgency} adminName={adminName}/>
         </AgencyContainer>
     )
 }
