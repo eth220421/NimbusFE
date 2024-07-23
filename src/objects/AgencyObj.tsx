@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AgencyObjType } from "./types";
 
+// 입력값이 저장된 상태들을 AgencyData에 저장 후 리턴하는 역할
 export const AgencyObj = () => {
     const [agencyName, setAgencyName] = useState('');
     const [relation, setRelation] = useState('');

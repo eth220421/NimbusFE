@@ -4,6 +4,7 @@ import MainPage from '../pages/main/MainPage';
 import AgencyPage from '../pages/agency/AgencyPage';
 import ProjectPage from '../pages/project/ProjectPage';
 import AgencyPopupPage from '../pages/agency/AgencyPopupPage';
+import ProjectPopupPage from '../pages/project/ProjectPopupPage';
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
             {
                 path: 'agency/popup',
                 element: <AgencyPopupPage />
+            },
+            {
+                path: 'project/popup',
+                element: <ProjectPopupPage />
             }
         ]
     }

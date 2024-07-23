@@ -4,7 +4,7 @@ import { AgencyTable } from "../../components/table/Table";
 import { AgencyContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { AgencyObjType } from "../../objects/types";
-import { useControllerEvents } from "../../components/controller/events";
+import { useAgencyControllerEvents } from "../../components/controller/events";
 
 export default function AgencyPage() {
     const location = useLocation();
@@ -19,7 +19,7 @@ export default function AgencyPage() {
     const [checkedAgency, setCheckedAgency] = useState<AgencyObjType | null>(null);
 
     // 초기 렌더링 시 GET All을 위한 handleRead
-    const { handleRead } = useControllerEvents({ setAgencys });
+    const { handleRead } = useAgencyControllerEvents({ setAgencys });
     useEffect(() => {
         handleRead();
     }, [])

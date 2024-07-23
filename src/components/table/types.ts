@@ -1,4 +1,4 @@
-import { AgencyObjType } from "../../objects/types";
+import { AgencyObjType, ProjectObjType } from "../../objects/types";
 
 export interface TableRowType {
     backgroundColor?: string;
@@ -16,4 +16,9 @@ export interface AgencyTableType {
     agencys: AgencyObjType[];
     setCheckedAgency: (agency: AgencyObjType) => void;
     adminName: string;
+}
+
+export interface ProjectTableType {
+    projects: ProjectObjType[];
+    setCheckedProjects: (project: ProjectObjType) => void;
 }

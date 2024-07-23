@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { InputTextAreaType, InputTextType } from "./types";
+import { InputDateType, InputSelectType, InputTextAreaType, InputTextType } from "./types";
 
 export const  InputText= styled.input.attrs(props => ({
     type: 'text',
@@ -25,4 +25,16 @@ export const InputRadioBtn = styled.input.attrs({
     name: 'agency'
 })`
     width: fit-content;
+`
+
+export const InputDate = styled.input.attrs({
+    type: 'date',
+})<InputDateType>`
+    width: ${(props) => props.width || '5rem'};
+`
+
+export const InputSelect = styled.select.attrs(props => ({
+    id: props.id || 'sel'
+}))<InputSelectType>`
+    width: 'fit-content'
 `

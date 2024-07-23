@@ -26,7 +26,7 @@ export const TableRow = styled.tr<TableRowType>`
 export const TableCell = styled.td<TableCellType>`
     width: ${(props) => props.width || 'fit-content'};
     height: 100%;
-
+    
     padding: 5px;
     text-align: ${(props) => props.textAlign || 'center'};
     border: ${(props) => props.border || 'none'};

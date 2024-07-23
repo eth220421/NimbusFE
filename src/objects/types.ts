@@ -8,3 +8,42 @@ export interface AgencyObjType {
     phoneNumber: string;
     active: boolean;
 }
+
+export interface ProjectObjType {
+    id: number;
+    projNo: string;
+    projName: string;
+    startDate?: string;
+    endDate?: string;
+    manager: string;
+    phoneNo?: string;
+    industryCode: {
+        id: number;
+        codeType: string;
+        codeValue: string;
+        codeDescription: string;
+    };
+    projCode: {
+        id: number;
+        codeType: string;
+        codeValue: string;
+        codeDescription: string;
+    };
+    projState: {
+        id: number;
+        codeType: string;
+        codeValue: string;
+        codeDescription: string;
+    };
+    workArea: {
+        id: number;
+        codeType: string;
+        codeValue: string;
+        codeDescription: string;
+    };
+    reqDate?: string;
+    workLocation?: string;
+    projEtc?: string;
+    projRemark?: string;
+    essentialTech?: string;
+}

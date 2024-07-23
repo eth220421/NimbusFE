@@ -1,22 +1,14 @@
 import { Link } from "react-router-dom";
 import { MainButton } from "../../components/button/Button";
 import { MainContainer } from "./styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useMainPageEvents } from "./events";
 
 export default function MainPage() {
     // 관리자 이름
     const [adminName, setAdminName] = useState('');
 
-    useEffect(() => {
-        let name: string | null = '';
-        while (!name) {
-            name = prompt('사용자 이름을 입력하세요.');
-            if (!name) {
-                alert('이름을 입력해주세요.');
-            }
-        }
-        setAdminName(name);
-    }, [])
+    const { handleSelect } = useMainPageEvents({ setAdminName });
 
     return (
         <MainContainer>
@@ -26,7 +18,7 @@ export default function MainPage() {
                     adminName: adminName
                 }}
             >
-                <MainButton value={"소속사"}/>
+                <MainButton value={"소속사"} onClick={handleSelect}/>
             </Link>
             <div style={{width: 100}}></div>
             <Link
@@ -35,7 +27,7 @@ export default function MainPage() {
                     adminName: adminName
                 }}
             >
-                <MainButton value={"프로젝트"}/>
+                <MainButton value={"프로젝트"} onClick={handleSelect}/>
             </Link>
         </MainContainer>
     )
