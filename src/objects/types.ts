@@ -10,8 +10,8 @@ export interface AgencyObjType {
 }
 
 export interface ProjectObjType {
-    id: number;
-    projNo: string;
+    id?: number;
+    projNo?: string;
     projName: string;
     startDate?: string;
     endDate?: string;
@@ -19,27 +19,27 @@ export interface ProjectObjType {
     phoneNo?: string;
     industryCode: {
         id: number;
-        codeType: string;
-        codeValue: string;
-        codeDescription: string;
+        codeType?: string;
+        codeValue?: string;
+        codeDescription?: string;
     };
     projCode: {
         id: number;
-        codeType: string;
-        codeValue: string;
-        codeDescription: string;
+        codeType?: string;
+        codeValue?: string;
+        codeDescription?: string;
     };
     projState: {
         id: number;
-        codeType: string;
-        codeValue: string;
-        codeDescription: string;
+        codeType?: string;
+        codeValue?: string;
+        codeDescription?: string;
     };
     workArea: {
         id: number;
-        codeType: string;
-        codeValue: string;
-        codeDescription: string;
+        codeType?: string;
+        codeValue?: string;
+        codeDescription?: string;
     };
     reqDate?: string;
     workLocation?: string;

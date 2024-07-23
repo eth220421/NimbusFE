@@ -92,7 +92,7 @@ export const ProjectTable = ({ projects, setCheckedProjects }: ProjectTableType)
                         <TableCell border="1px solid black">{project.projCode.codeDescription}</TableCell>
                         <TableCell border="1px solid black">{project.essentialTech}</TableCell>
                         <TableCell border="1px solid black">{project.projRemark}</TableCell>
-                        <TableCell border="1px solid black">{project.workLocation}</TableCell>
+                        <TableCell border="1px solid black">{project.workArea.codeDescription}</TableCell>
                         <TableCell border="1px solid black">{project.projEtc}</TableCell>
                     </TableRow>
                 ))}
