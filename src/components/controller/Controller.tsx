@@ -1,12 +1,10 @@
 import { ButtonArea, ControllerContainer, SearchArea } from "./styles";
 import { BtnCRUD } from '../button/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InputDate, InputText } from "../input/Input";
 import { useAgencyControllerEvents, useProjectControllerEvents } from "./events";
 import { AgencyControllerType, ProjectControllerType } from "./types";
 import { useState } from "react";
-import { getAllProject } from "../../apis/api/read/getAllProject";
-import { start } from "repl";
 
 export const AgencyController = ({ setAgencys, checkedAgency }: AgencyControllerType) => {
   const [id, setId] = useState('');
@@ -49,10 +47,11 @@ export const AgencyController = ({ setAgencys, checkedAgency }: AgencyController
 };
 
 export const ProjectController = ({ setProjects, checkedProjects }: ProjectControllerType) => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const { handleRead, handleDelete } = useProjectControllerEvents({ setProjects, name, startDate, endDate, checkedProjects });
+  const { handleRead, handleDelete, handleUpdate } = useProjectControllerEvents({ setProjects, name, startDate, endDate, checkedProjects, navigate });
 
   return (
     <ControllerContainer>
@@ -75,15 +74,7 @@ export const ProjectController = ({ setProjects, checkedProjects }: ProjectContr
         >
           <BtnCRUD value={'신규'}/>
         </Link>
-        <Link
-          to={'./popup'}
-          state={{
-            title: '수정',
-            valueApply: '수정'
-          }}
-        >
-          <BtnCRUD value={'수정'}/>
-        </Link>
+        <BtnCRUD value={'수정'} onClick={handleUpdate}/>
         <BtnCRUD value={'삭제'} onClick={handleDelete}/>
         <BtnCRUD value={'조회'} onClick={handleRead}/>
       </ButtonArea>

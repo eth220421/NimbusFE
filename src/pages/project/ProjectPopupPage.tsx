@@ -5,6 +5,8 @@ import { Table, TableCell, TableRow } from "../../components/table/styles";
 import { ProjectPopupContainer, Title } from "./styles";
 import { ProjectObj } from "../../objects/ProjectObj";
 import { useProjectEvents } from "./events";
+import { ProjectObjType } from "../../objects/types";
+import { useEffect } from "react";
 
 export default function ProjectPopupPage() {
     const location = useLocation();
@@ -12,6 +14,10 @@ export default function ProjectPopupPage() {
 
     const title = location.state.title as string;
     const valueApply = location.state.valueApply as string;
+    const checkedProjects = location.state.checkedProjects as ProjectObjType;
+    const projectId = checkedProjects?.id ?? 0;
+
+    console.log(checkedProjects);
 
     const {
         ProjectData,
@@ -31,8 +37,35 @@ export default function ProjectPopupPage() {
         setProjEtc
     } = ProjectObj();
 
-    const { handleRegister } = useProjectEvents({ ProjectData, navigate });
+    useEffect(() => {
+        if(valueApply === '수정' && checkedProjects) {
+            setProjName(checkedProjects.projName);
+            setStartDate(checkedProjects.startDate || '');
+            setEndDate(checkedProjects.endDate || '');
+            setManager(checkedProjects.manager);
+            setPhoneNo(checkedProjects.phoneNo || '');
+            setIndustryCodeID(checkedProjects.industryCode.id);
+            setProjCodeID(checkedProjects.projCode.id);
+            setProjStateID(checkedProjects.projState.id);
+            setReqDate(checkedProjects.reqDate || '');
+            setWorkAreaID(checkedProjects.workArea.id);
+            setWorkLocation(checkedProjects.workLocation || '');
+            setEssentialTech(checkedProjects.essentialTech || '');
+            setProjRemark(checkedProjects.projRemark || '');
+            setProjEtc(checkedProjects.projEtc || '');
+        }
+    }, [ valueApply, checkedProjects, setProjName, setStartDate, setEndDate, setManager, setPhoneNo, setIndustryCodeID, setProjCodeID, setProjStateID, setReqDate, setWorkAreaID, setWorkLocation, setEssentialTech, setProjRemark, setProjEtc ])
+
+    const { handleRegister, handleUpdate } = useProjectEvents({ ProjectData, navigate, projectId });
     
+    const handleApplyClick = () => {
+        if (valueApply === '등록신청') {
+            handleRegister();
+        } else {
+            handleUpdate();
+        }
+    };
+
     return (
         <ProjectPopupContainer>
             <Title>프로젝트 {title}</Title>
@@ -139,7 +172,7 @@ export default function ProjectPopupPage() {
                     <TableCell>
                         <BtnReset />
                         &nbsp;
-                        <BtnApply value={valueApply} onClick={handleRegister} />
+                        <BtnApply value={valueApply} onClick={handleApplyClick} />
                     </TableCell>
                 </TableRow>
             </Table>

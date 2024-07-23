@@ -1,7 +1,8 @@
 import { createProject } from "../../apis/api/create/createProject";
+import { updateProject } from "../../apis/api/update/updateProject";
 import { useProjectEventsType } from "./types"
 
-export const useProjectEvents = ({ ProjectData, navigate }: useProjectEventsType) => {
+export const useProjectEvents = ({ ProjectData, navigate, projectId }: useProjectEventsType) => {
     const handleRegister = () => {
         if (!ProjectData.projName) {
             alert("프로젝트 명은 필수 입력값입니다.");
@@ -31,5 +32,9 @@ export const useProjectEvents = ({ ProjectData, navigate }: useProjectEventsType
         createProject({ ProjectData, navigate });
     }
 
-    return { handleRegister }
+    const handleUpdate = () => {
+        updateProject({ ProjectData, navigate, projectId })
+    }
+
+    return { handleRegister, handleUpdate }
 }

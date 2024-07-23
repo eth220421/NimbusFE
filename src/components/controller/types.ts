@@ -13,4 +13,5 @@ export interface ProjectControllerType {
     name?: string;
     startDate?: string;
     endDate?: string;
+    navigate?: any;
 }
