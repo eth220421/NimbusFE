@@ -1,3 +1,4 @@
+// input 폴더에서 사용할 Type(Interface)
 export interface InputTextType {
     width?: string;
     required?: boolean;

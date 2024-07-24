@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ButtonType } from "./types";
 
+// 프로젝트 내에서 사용할 버튼들 컴포넌트화 (재사용성 ↑, 유지보수성 ↑)
 export const MainButton = styled.input.attrs({
     type: 'button',
 })<ButtonType>`
@@ -17,6 +18,9 @@ export const MainButton = styled.input.attrs({
 
     &:hover {
         cursor: pointer;
+        background-color: #cfcfcf;
+        color: black;
+        border: 1px solid gray;
     }
 `
 

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// controller 폴더에서 사용될 CSS 속성 정의 (재사용성 ↑, 유지보수성 ↑)
 export const ControllerContainer = styled.div`
     width: 100%;
     height: 7rem;

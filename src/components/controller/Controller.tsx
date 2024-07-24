@@ -46,6 +46,7 @@ export const AgencyController = ({ setAgencys, checkedAgency }: AgencyController
   );
 };
 
+// 프로젝트 컨트롤러 (등록, 수정, 삭제, 조회 작업 수행)
 export const ProjectController = ({ setProjects, checkedProjects }: ProjectControllerType) => {
   const navigate = useNavigate();
   const [name, setName] = useState('');

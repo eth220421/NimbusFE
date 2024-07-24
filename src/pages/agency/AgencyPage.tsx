@@ -10,7 +10,7 @@ export default function AgencyPage() {
     const location = useLocation();
     
     // 관리자 이름
-    const adminName = location.state.adminName as string;
+    const adminName = location.state?.adminName as string;
 
     // Controller.tsx와 Table.tsx의 부모 폴더에서 상태 관리
     const [agencys, setAgencys] = useState<AgencyObjType[]>([]);

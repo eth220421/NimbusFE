@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// project 폴더에서 사용될 CSS 속성 정의
 export const ProjectContainer = styled.div`
     width: 80%;
 

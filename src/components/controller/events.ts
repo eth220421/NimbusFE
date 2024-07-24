@@ -4,7 +4,6 @@ import { getAgencyById } from "../../apis/api/read/getAgencyById";
 import { getAllAgency } from "../../apis/api/read/getAllAgency"
 import { getAllProject } from "../../apis/api/read/getAllProject";
 import { getProject } from "../../apis/api/read/getProject";
-import { updateProject } from "../../apis/api/update/updateProject";
 import { AgencyControllerType, ProjectControllerType } from "./types";
 
 // Agency
@@ -41,7 +40,7 @@ export const useAgencyControllerEvents = ({ setAgencys , id = '', name = '', che
     return { handleRead, handleDelete }
 }
 
-// Project
+// 프로젝트 컨트롤러에서 사용할 함수들 정의
 export const useProjectControllerEvents = ({ setProjects, name = '', startDate = '', endDate = '', checkedProjects, navigate }: ProjectControllerType) => {
     const projectId = checkedProjects?.id ?? 0;
     
@@ -71,8 +70,12 @@ export const useProjectControllerEvents = ({ setProjects, name = '', startDate =
 
     // 프로젝트 삭제
     const handleDelete = async () => {
-        await deleteProject({ projectId });
-        handleRead();
+        if (window.confirm(checkedProjects?.projName + ' 을(를) 삭제하시겠습니까?')) {
+            await deleteProject({ projectId });
+            handleRead();
+        } else {
+            return ;
+        }
     }
 
     return { handleRead, handleDelete, handleUpdate }

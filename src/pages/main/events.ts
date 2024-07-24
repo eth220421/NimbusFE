@@ -1,5 +1,6 @@
 import { MainPageEventsType } from "./types";
 
+// main 폴더에서 사용할 함수 정의
 export const useMainPageEvents = ({ setAdminName }: MainPageEventsType) => {
     const handleSelect = () => {
         let name: string | null = '';

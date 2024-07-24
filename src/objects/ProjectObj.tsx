@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ProjectObjType } from "./types";
 
+// 프로젝트 등록 or 수정 시 각 입력 필드에 작성한 데이터 저장
 export const ProjectObj = () => {
     const [projName, setProjName] = useState('');
     const [startDate, setStartDate] = useState('');

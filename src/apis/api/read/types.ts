@@ -1,3 +1,4 @@
+// read 폴더에서 사용될 Type(Interface)
 export interface getAgencyType {
     id?: string;
     name?: string;

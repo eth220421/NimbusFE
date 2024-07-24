@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { TableCellType, TableRowType } from "./types";
 
+// table 폴더에서 사용될 CSS 속성 정의
 export const TableContainer = styled.div`
     width: 100%;
     height: 500px;

@@ -9,6 +9,7 @@ export interface AgencyObjType {
     active: boolean;
 }
 
+// 단일 프로젝트의 Type(Interface)
 export interface ProjectObjType {
     id?: number;
     projNo?: string;

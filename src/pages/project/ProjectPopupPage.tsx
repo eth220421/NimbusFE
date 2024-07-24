@@ -8,6 +8,7 @@ import { useProjectEvents } from "./events";
 import { ProjectObjType } from "../../objects/types";
 import { useEffect } from "react";
 
+// 프로젝트 등록 or 수정 페이지
 export default function ProjectPopupPage() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,8 +17,6 @@ export default function ProjectPopupPage() {
     const valueApply = location.state.valueApply as string;
     const checkedProjects = location.state.checkedProjects as ProjectObjType;
     const projectId = checkedProjects?.id ?? 0;
-
-    console.log(checkedProjects);
 
     const {
         ProjectData,
@@ -66,13 +65,47 @@ export default function ProjectPopupPage() {
         }
     };
 
+    // 담당자 이름 유효성 검사
+    const handleValidateManager = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const truncatedValue = value.slice(0, 20);
+    
+        setManager(truncatedValue);
+    };
+
+    // 전화번호 유효성 검사
+    const handleValidatePhoneNo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const numericValue = value.replace(/[^0-9]/g, '');
+        const truncatedValue = numericValue.slice(0, 15);
+
+        setPhoneNo(truncatedValue);
+    };
+
+    const handleReset = () => {
+        setProjName('');
+        setStartDate('');
+        setEndDate('');
+        setManager('');
+        setPhoneNo('');
+        setIndustryCodeID(0);
+        setProjCodeID(0);
+        setProjStateID(0);
+        setReqDate('');
+        setWorkAreaID(0);
+        setWorkLocation('');
+        setEssentialTech('');
+        setProjRemark('');
+        setProjEtc('');
+    }
+
     return (
         <ProjectPopupContainer>
             <Title>프로젝트 {title}</Title>
             <Table>
                 <TableRow>
                     <TableCell>프로젝트 No</TableCell>
-                    <TableCell textAlign="left" colSpan={3}>(PROJ_ID : 시스템에서 자동 부여함)</TableCell>
+                    <TableCell textAlign="left" colSpan={3}>(PROJ_No : 시스템에서 자동 부여함)</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>* 프로젝트 명</TableCell>
@@ -91,17 +124,18 @@ export default function ProjectPopupPage() {
                 <TableRow>
                     <TableCell>* 담당자</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="80%" value={ProjectData.manager} onChange={(e) => setManager(e.target.value)} />
+                        <InputText width="80%" value={ProjectData.manager} onChange={handleValidateManager} />
                     </TableCell>
                     <TableCell>전화번호</TableCell>
                     <TableCell textAlign="left">
-                        <InputText width="80%" value={ProjectData.phoneNo} onChange={(e) => setPhoneNo(e.target.value)} />
+                        <InputText width="80%" value={ProjectData.phoneNo} onChange={handleValidatePhoneNo} />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>* 산업구분코드</TableCell>
                     <TableCell textAlign="left">
                         <InputSelect id={"industryCode"} value={ProjectData.industryCode.id} onChange={(e) => setIndustryCodeID(Number(e.target.value))}>
+                            <option value="0">-</option>
                             <option value="1">소프트웨어 개발</option>
                             <option value="2">재정 서비스</option>
                         </InputSelect>
@@ -109,6 +143,7 @@ export default function ProjectPopupPage() {
                     <TableCell>* PJ 구분</TableCell>
                     <TableCell textAlign="left">
                         <InputSelect id={"ProjectCode"} value={ProjectData.projCode.id} onChange={(e) => setProjCodeID(Number(e.target.value))}>
+                            <option value="0">-</option>
                             <option value="3">관리자 프로젝트</option>
                             <option value="4">클라이언트 프로젝트</option>
                         </InputSelect>
@@ -118,6 +153,7 @@ export default function ProjectPopupPage() {
                     <TableCell>* 프로젝트 상태</TableCell>
                     <TableCell textAlign="left">
                         <InputSelect id={"ProjectState"} value={ProjectData.projState.id} onChange={(e) => setProjStateID(Number(e.target.value))}>
+                            <option value="0">-</option>
                             <option value="5">진행 중</option>
                             <option value="6">중지</option>
                             <option value="7">완료</option>
@@ -132,6 +168,7 @@ export default function ProjectPopupPage() {
                     <TableCell>* 근무지역</TableCell>
                     <TableCell textAlign="left" colSpan={3}>
                         <InputSelect id={"workingArea"} value={ProjectData.workArea.id} onChange={(e) => setWorkAreaID(Number(e.target.value))}>
+                            <option value="0">-</option>
                             <option value="8">서울</option>
                             <option value="9">부산</option>
                         </InputSelect>
@@ -170,7 +207,7 @@ export default function ProjectPopupPage() {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell>
-                        <BtnReset />
+                        <BtnReset onClick={handleReset} />
                         &nbsp;
                         <BtnApply value={valueApply} onClick={handleApplyClick} />
                     </TableCell>

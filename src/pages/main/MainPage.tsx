@@ -4,10 +4,12 @@ import { MainContainer } from "./styles";
 import { useState } from "react";
 import { useMainPageEvents } from "./events";
 
+// 메인 페이지 (서비스 선택 창)
 export default function MainPage() {
     // 관리자 이름
     const [adminName, setAdminName] = useState('');
 
+    // 버튼 클릭 시 사용되는 함수 구조 분해 할당
     const { handleSelect } = useMainPageEvents({ setAdminName });
 
     return (

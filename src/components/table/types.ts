@@ -1,5 +1,6 @@
 import { AgencyObjType, ProjectObjType } from "../../objects/types";
 
+// table 폴더에서 사용될 Type(Interface)
 export interface TableRowType {
     backgroundColor?: string;
     fontColor?: string;

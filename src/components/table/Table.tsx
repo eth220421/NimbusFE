@@ -3,6 +3,7 @@ import { AgencyTableType, ProjectTableType } from "./types"
 import { AgencyObjType, ProjectObjType } from "../../objects/types"
 import { useTableEvents } from "./events";
 import { InputRadioBtn } from "../input/Input";
+import React from "react";
 
 export const AgencyTable = ({ agencys, setCheckedAgency, adminName }: AgencyTableType) => {
     const { handleCalCurrentDay } = useTableEvents();
@@ -50,7 +51,38 @@ export const AgencyTable = ({ agencys, setCheckedAgency, adminName }: AgencyTabl
     )
 }
 
+// 프로젝트 테이블 (검색한 데이터들 출력)
 export const ProjectTable = ({ projects, setCheckedProjects }: ProjectTableType) => {
+    const projectList = projects || [];
+
+    // 전화번호 출력 처리 로직
+    const formatPhoneNumber = (phoneNumber?: string): string => {
+        if (!phoneNumber) return '';
+        
+        const cleaned = phoneNumber.replace(/\D/g, '');
+        if (cleaned.length === 11) {
+            return cleaned.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        }
+        return phoneNumber;
+    };
+
+    // 프로젝트 No 출력 처리 로직
+    const formatProjNo = (projNo?: string) => {
+        if (!projNo) {
+            return null;
+        }
+
+        return (
+            projNo.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                    {line}
+                    <br />
+                </React.Fragment>
+            ))
+        )
+    };
+
+    // 특정 프로젝트의 라디오 버튼 클릭 시 처리 로직
     const handleCheck = (project: ProjectObjType) => {
         setCheckedProjects(project);
     }
@@ -63,7 +95,6 @@ export const ProjectTable = ({ projects, setCheckedProjects }: ProjectTableType)
                     <TableCell border="1px solid black">Proj No</TableCell>
                     <TableCell border="1px solid black">프로젝트명</TableCell>
                     <TableCell border="1px solid black">상태</TableCell>
-                    <TableCell border="1px solid black">수행사</TableCell>
                     <TableCell border="1px solid black">시작일</TableCell>
                     <TableCell border="1px solid black">종료일</TableCell>
                     <TableCell border="1px solid black">담당자</TableCell>
@@ -75,27 +106,46 @@ export const ProjectTable = ({ projects, setCheckedProjects }: ProjectTableType)
                     <TableCell border="1px solid black">지역</TableCell>
                     <TableCell border="1px solid black">비고</TableCell>
                 </TableRow>
-                {projects.map((project: ProjectObjType) => (
-                    <TableRow key={project.id}>
-                        <TableCell border="1px solid black">
-                            <InputRadioBtn onChange={() => handleCheck(project)}/>
-                        </TableCell>
-                        <TableCell border="1px solid black">{project.projNo}</TableCell>
-                        <TableCell border="1px solid black">{project.projName}</TableCell>
-                        <TableCell border="1px solid black">{project.projState.codeDescription}</TableCell>
-                        <TableCell border="1px solid black">{/* 수행사 생략 */}</TableCell>
-                        <TableCell border="1px solid black">{project.startDate}</TableCell>
-                        <TableCell border="1px solid black">{project.endDate}</TableCell>
-                        <TableCell border="1px solid black">{project.manager}</TableCell>
-                        <TableCell border="1px solid black">{project.phoneNo}</TableCell>
-                        <TableCell border="1px solid black">{project.industryCode.codeDescription}</TableCell>
-                        <TableCell border="1px solid black">{project.projCode.codeDescription}</TableCell>
-                        <TableCell border="1px solid black">{project.essentialTech}</TableCell>
-                        <TableCell border="1px solid black">{project.projRemark}</TableCell>
-                        <TableCell border="1px solid black">{project.workArea.codeDescription}</TableCell>
-                        <TableCell border="1px solid black">{project.projEtc}</TableCell>
+                {projectList.length > 0 ? (
+                    projectList.map((project: ProjectObjType) => (
+                        <TableRow key={project.id}>
+                            <TableCell border="1px solid black">
+                                <InputRadioBtn onChange={() => handleCheck(project)}/>
+                            </TableCell>
+                            <TableCell border="1px solid black">{formatProjNo(project.projNo)}</TableCell>
+                            <TableCell border="1px solid black">{project.projName}</TableCell>
+                            <TableCell border="1px solid black">{project.projState.codeDescription}</TableCell>
+                            <TableCell border="1px solid black">{project.startDate}</TableCell>
+                            <TableCell border="1px solid black">{project.endDate}</TableCell>
+                            <TableCell border="1px solid black">{project.manager}</TableCell>
+                            <TableCell border="1px solid black">{formatPhoneNumber(project.phoneNo)}</TableCell>
+                            <TableCell border="1px solid black">{project.industryCode.codeDescription}</TableCell>
+                            <TableCell border="1px solid black">{project.projCode.codeDescription}</TableCell>
+                            <TableCell border="1px solid black">{project.essentialTech}</TableCell>
+                            <TableCell border="1px solid black">{project.projRemark}</TableCell>
+                            <TableCell border="1px solid black">{project.workArea.codeDescription}</TableCell>
+                            <TableCell border="1px solid black">{project.projEtc}</TableCell>
+                        </TableRow>
+                    ))
+                ) : (
+                    <TableRow>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
+                        <TableCell border="1px solid black"></TableCell>
                     </TableRow>
-                ))}
+                )}
             </Table>
         </TableContainer>
     )
