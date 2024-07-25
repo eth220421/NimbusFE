@@ -44,6 +44,7 @@ export interface ProjectObjType {
     };
     reqDate?: string;
     workLocation?: string;
+    workLocationDetail?: string;
     projEtc?: string;
     projRemark?: string;
     essentialTech?: string;

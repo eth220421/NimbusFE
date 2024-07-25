@@ -14,6 +14,7 @@ export const ProjectObj = () => {
     const [reqDate, setReqDate] = useState('');
     const [workAreaID, setWorkAreaID] = useState<number>(0); // 숫자
     const [workLocation, setWorkLocation] = useState('');
+    const [workLocationDetail, setWorkLocationDetail] = useState('');
     const [essentialTech, setEssentialTech] = useState('');
     const [projRemark, setProjRemark] = useState('');
     const [projEtc, setProjEtc] = useState('');
@@ -38,6 +39,7 @@ export const ProjectObj = () => {
         },
         reqDate: reqDate,
         workLocation: workLocation,
+        workLocationDetail: workLocationDetail,
         essentialTech: essentialTech,
         projRemark: projRemark,
         projEtc: projEtc
@@ -56,6 +58,7 @@ export const ProjectObj = () => {
         setReqDate,
         setWorkAreaID,
         setWorkLocation,
+        setWorkLocationDetail,
         setEssentialTech,
         setProjRemark,
         setProjEtc

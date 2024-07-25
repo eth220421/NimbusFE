@@ -6,7 +6,7 @@ export const updateProject = async ({ ProjectData, navigate, projectId }: Delete
     try {
         const response = await axios.put(`projects/${projectId}`, ProjectData);
         console.log(response.data);
-        navigate(-1);
+        navigate('/statistics/project');
     } catch (error) {
         console.log(error);
     }

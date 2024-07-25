@@ -1,9 +1,11 @@
 import { createProject } from "../../apis/api/create/createProject";
 import { updateProject } from "../../apis/api/update/updateProject";
-import { useProjectEventsType } from "./types"
+import { useProjectEventsType } from "./types";
+import { useState } from "react";
 
 // project 폴더에서 사용될 함수 정의
-export const useProjectEvents = ({ ProjectData, navigate, projectId }: useProjectEventsType) => {
+export const useProjectEvents = ({ ProjectData, navigate, projectId, setWorkLocation }: useProjectEventsType) => {
+    const [isPostcodeModalOpen, setIsPostcodeModalOpen] = useState(false);
 
     const handleRegister = () => {
         if (!ProjectData.projName) {
@@ -33,7 +35,7 @@ export const useProjectEvents = ({ ProjectData, navigate, projectId }: useProjec
         }
 
         createProject({ ProjectData, navigate });
-    }
+    };
 
     const handleUpdate = () => {
         if (!ProjectData.projName) {
@@ -54,10 +56,23 @@ export const useProjectEvents = ({ ProjectData, navigate, projectId }: useProjec
         else if (ProjectData.workArea.id === 0) {
             alert('근무지역을 선택해주세요.');
         }
-        else (
-            updateProject({ ProjectData, navigate, projectId })
-        )
-    }
+        else {
+            updateProject({ ProjectData, navigate, projectId });
+        }
+    };
 
-    return { handleRegister, handleUpdate }
-}
+    // 주소 검색 완료 시 호출될 함수
+    const handleAddressComplete = (data: any) => {
+        const addr = data.address;
+        setWorkLocation(`${addr} ${data.zonecode}`);
+        setIsPostcodeModalOpen(false);
+    };
+
+    return { 
+        handleRegister, 
+        handleUpdate, 
+        isPostcodeModalOpen, 
+        setIsPostcodeModalOpen, 
+        handleAddressComplete 
+    };
+};

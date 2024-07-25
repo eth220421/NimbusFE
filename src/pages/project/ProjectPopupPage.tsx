@@ -7,6 +7,8 @@ import { ProjectObj } from "../../objects/ProjectObj";
 import { useProjectEvents } from "./events";
 import { ProjectObjType } from "../../objects/types";
 import { useEffect } from "react";
+import DaumPostcode from 'react-daum-postcode';
+import Modal from 'react-modal';
 
 // 프로젝트 등록 or 수정 페이지
 export default function ProjectPopupPage() {
@@ -31,6 +33,7 @@ export default function ProjectPopupPage() {
         setReqDate,
         setWorkAreaID,
         setWorkLocation,
+        setWorkLocationDetail,
         setEssentialTech,
         setProjRemark,
         setProjEtc
@@ -49,13 +52,14 @@ export default function ProjectPopupPage() {
             setReqDate(checkedProjects.reqDate || '');
             setWorkAreaID(checkedProjects.workArea.id);
             setWorkLocation(checkedProjects.workLocation || '');
+            setWorkLocationDetail(checkedProjects.workLocationDetail || '');
             setEssentialTech(checkedProjects.essentialTech || '');
             setProjRemark(checkedProjects.projRemark || '');
             setProjEtc(checkedProjects.projEtc || '');
         }
-    }, [ valueApply, checkedProjects, setProjName, setStartDate, setEndDate, setManager, setPhoneNo, setIndustryCodeID, setProjCodeID, setProjStateID, setReqDate, setWorkAreaID, setWorkLocation, setEssentialTech, setProjRemark, setProjEtc ])
+    }, [ valueApply, checkedProjects, setProjName, setStartDate, setEndDate, setManager, setPhoneNo, setIndustryCodeID, setProjCodeID, setProjStateID, setReqDate, setWorkAreaID, setWorkLocation, setWorkLocationDetail, setEssentialTech, setProjRemark, setProjEtc ])
 
-    const { handleRegister, handleUpdate } = useProjectEvents({ ProjectData, navigate, projectId });
+    const { handleRegister, handleUpdate, isPostcodeModalOpen, setIsPostcodeModalOpen, handleAddressComplete } = useProjectEvents({ ProjectData, navigate, projectId, setWorkLocation });
     
     const handleApplyClick = () => {
         if (valueApply === '등록신청') {
@@ -177,10 +181,13 @@ export default function ProjectPopupPage() {
                 <TableRow>
                     <TableCell>작업장 주소</TableCell>
                     <TableCell textAlign="left" colSpan={2}>
-                        <InputText width="100%" value={ProjectData.workLocation} onChange={(e) => setWorkLocation(e.target.value)} />
+                        <InputText width="100%" value={ProjectData.workLocation} onChange={(e) => setWorkLocation(e.target.value)} readOnly/>
                     </TableCell>
                     <TableCell>
-                        <BtnZipCode />
+                        <div style={{ width: '80%', display: "flex", alignItems: 'center', justifyContent: 'space-around'}}>
+                            <InputText width="50%" placeholder="상세 주소" value={ProjectData.workLocationDetail} onChange={(e) => setWorkLocationDetail(e.target.value)}/>
+                            <BtnZipCode onClick={() => setIsPostcodeModalOpen(true)} />
+                        </div>
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -213,6 +220,23 @@ export default function ProjectPopupPage() {
                     </TableCell>
                 </TableRow>
             </Table>
+            <Modal
+                isOpen={isPostcodeModalOpen}
+                onRequestClose={() => setIsPostcodeModalOpen(false)}
+                style={{
+                    content: {
+                        width: '40rem',
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)'
+                    }
+                }}
+            >
+                <DaumPostcode onComplete={handleAddressComplete}/>
+            </Modal>
         </ProjectPopupContainer>
     )
 }

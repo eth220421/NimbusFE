@@ -5,4 +5,5 @@ export interface useProjectEventsType {
     ProjectData: ProjectObjType;
     navigate: any;
     projectId: number;
+    setWorkLocation: (value: string) => void;
 }

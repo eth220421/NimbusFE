@@ -8,8 +8,8 @@ export const createProject = async ({ ProjectData, navigate }: CreateProjectType
             '/projects',
             ProjectData
         )
-        console.log(response.data);
-        navigate(-1);
+        console.log('hello world', response.data);
+        navigate('/statistics/project');
         return response.data
     } catch (error) {
         console.log(error);
