@@ -6,7 +6,7 @@ import ProjectPage from '../pages/project/ProjectPage';
 import AgencyPopupPage from '../pages/agency/AgencyPopupPage';
 import ProjectPopupPage from '../pages/project/ProjectPopupPage';
 
-// 프로젝트 내에 존재하는 모든 페이지들의 경로 작성
+// 프로젝트 내에 존재하는 모든 페이지들의 경로 관리
 export const router = createBrowserRouter([
     {
         path: '/statistics',

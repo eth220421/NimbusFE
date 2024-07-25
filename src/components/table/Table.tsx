@@ -143,7 +143,6 @@ export const ProjectTable = ({ projects, setCheckedProjects }: ProjectTableType)
                         <TableCell border="1px solid black"></TableCell>
                         <TableCell border="1px solid black"></TableCell>
                         <TableCell border="1px solid black"></TableCell>
-                        <TableCell border="1px solid black"></TableCell>
                     </TableRow>
                 )}
             </Table>
